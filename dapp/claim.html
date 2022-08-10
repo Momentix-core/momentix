@@ -21,6 +21,10 @@
 </div>
 
 <div>
+    <strong id="status"></strong>
+</div>
+
+<div>
     <img id="qrcode" style="display: none; width: 250;" src="" />
 </div>
 
@@ -42,10 +46,12 @@
                         accounts = result;
                         //$("#sign").show();
                         $("#connect").hide();
+                        $("#status").text("MINTING...");
                         var claimURL = `https://api.momentix.xyz/qrcode?address=${accounts[0]}&tokenId=&event=0x6278a8eef52780d0Dbbce40e10aE38163298aFB0`;
                         const response = await fetch(verifyURL);
                         const responseText = await response.json();
                         if ("url" in responseText) {
+                            $("#status").text("MINTED");
                             $("#qrcode").attr("src", responseText.url).show();
                         }
                     })
