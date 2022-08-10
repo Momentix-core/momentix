@@ -48,7 +48,8 @@
                         $("#connect").hide();
                         $("#status").text("MINTING...");
                         var claimURL = `https://api.momentix.xyz/qrcode?address=${accounts[0]}&tokenId=&event=0x6278a8eef52780d0Dbbce40e10aE38163298aFB0`;
-                        const response = await fetch(verifyURL);
+                        console.log(claimURL);
+                        const response = await fetch(claimURL);
                         const responseText = await response.json();
                         if ("url" in responseText) {
                             $("#status").text("MINTED");
