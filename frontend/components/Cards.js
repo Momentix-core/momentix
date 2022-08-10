@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { MomentixContext } from "../context/MomentixContext";
 import { client } from "../lib/sanityClient";
 import createImageUrlBuilder from "@sanity/image-url";
+import Link from "next/link";
+import Image from "next/image";
 
 const styles = {
   container: ` container mx-auto flex max-w-7xl flex-col py-24 px-3 sm:py-60`,
@@ -18,6 +20,7 @@ const Cards = () => {
   function urlFor(source) {
     return builder.image(source);
   }
+
   console.log("events in cards:", events);
   function showEventDate(eventStart, eventEnd) {
     if (new Date(eventEnd) < timeNow) {
@@ -90,15 +93,10 @@ const Cards = () => {
       <div className={styles.title}>Events</div>
       <div className={styles.cards}>
         {events &&
-          events?.map((event) => {
-            return (
-              <a
-                key={event._id}
-                href={`${event.link}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div className="flex h-full flex-1 cursor-pointer flex-col justify-between overflow-hidden rounded-md shadow-lg transition-transform duration-200 ease-in-out hover:scale-105">
+          events?.map((event, index) => (
+            <Link key={index} href={`/events/${event.slug.current}`}>
+              <div className="flex h-full flex-1 cursor-pointer flex-col justify-between overflow-hidden rounded-md shadow-lg transition-transform duration-200 ease-in-out hover:scale-105">
+                {event && (
                   <div>
                     {" "}
                     {event.mainImage && (
@@ -121,23 +119,40 @@ const Cards = () => {
                             {console.log(event.summary)}
                             {event?.summary}
                           </p>
+                          <p className="text-sm leading-6 text-black">
+                            {event?.transferDate < timeNow ? (
+                              "Non-transferrable ticket"
+                            ) : (
+                              <h3>
+                                Ticket Transfer Allowed Starting{" "}
+                                {new Date(event.transferDate).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                  }
+                                )}
+                              </h3>
+                            )}
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex items-center justify-between bg-white p-3 md:p-5">
-                    <div>
-                      {/* <p className="text-xs text-black">
+                    <div className="flex items-center justify-between bg-white p-3 md:p-5">
+                      <div>
+                        {/* <p className="text-xs text-black">
                           <span className="font-semibold">Organizer:</span>{" "}
                           {console.log("logged event:", event)}
                           {event.users.username}
                         </p> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
-            );
-          })}
+                )}
+              </div>
+            </Link>
+          ))}
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ export const MomentixProvider = ({ children }) => {
                 title,
                 startTime,
                 endTime,
+                transferDate,
                 link,
                 slug,
                 mainImage,
