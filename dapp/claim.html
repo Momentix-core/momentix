@@ -12,6 +12,8 @@
     <img src="/images/momentix-logo.webp" />
 </div>
 
+<h2>Claim your NFT Ticket</h2>
+
 <div>
     <button id="connect">Step 1: Connect</button>
 </div>
@@ -47,7 +49,7 @@
                         //$("#sign").show();
                         $("#connect").hide();
                         $("#status").text("MINTING...");
-                        var claimURL = `https://api.momentix.xyz/qrcode?address=${accounts[0]}&tokenId=&event=0x6278a8eef52780d0Dbbce40e10aE38163298aFB0`;
+                        var claimURL = `https://api.momentix.xyz/qrcode?address=${accounts[0]}&tokenId=0&event=0x6278a8eef52780d0Dbbce40e10aE38163298aFB0`;
                         console.log(claimURL);
                         const response = await fetch(claimURL);
                         const responseText = await response.json();
