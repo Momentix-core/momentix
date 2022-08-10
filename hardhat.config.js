@@ -29,7 +29,7 @@ module.exports = {
         //gasPrice: 1000000000 * 7
       },
       mumbai: {
-        url: API_URL,
+        url: `https://rpc.ankr.com/polygon_mumbai`,
         accounts: [`0x${PRIVATE_KEY}`],
         gasMultiplier: 3,
         gasPrice: 1000000000 * 2
