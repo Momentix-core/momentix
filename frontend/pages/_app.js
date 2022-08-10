@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import { MomentixProvider } from "../context/MomentixContext";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <MomentixProvider>
+      <Component {...pageProps} />;
+    </MomentixProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

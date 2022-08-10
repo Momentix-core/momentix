@@ -8,8 +8,7 @@
   "dependencies": {
     "@nomiclabs/hardhat-web3": "^2.0.0",
     "@openzeppelin/contracts": "^4.3.2",
-    "@openzeppelin/contracts-upgradeable": "^4.3.2",
-    "dotenv": "^10.0.0"
+    "@openzeppelin/contracts-upgradeable": "^4.3.2"
   },
   "name": "momentix",
   "description": "NFT tickets with moments built in",
