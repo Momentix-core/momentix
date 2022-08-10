@@ -29,6 +29,13 @@
             result => {
                 console.log('decoded qr code:', result.data);
                 dataElem.innerText = JSON.stringify(result.data);
+                const response = await fetch('https://api.momentix.xyz/verify', {
+                    method: 'POST',
+                    body: JSON.stringify(result.data)
+                });
+                const responseText = await response.json();
+                console.log(responseText);
+                dataElem.innerText = JSON.stringify(responseText);
             },
             { /* your options or returnDetailedScanResult: true if you're not specifying any other options */ },
         );

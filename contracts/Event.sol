@@ -6,6 +6,10 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
+interface IEventFactory {
+    function addUser(address user) external returns (bool);    
+}
+
 contract Event is Initializable, ERC721Upgradeable, AccessControlUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
@@ -16,6 +20,8 @@ contract Event is Initializable, ERC721Upgradeable, AccessControlUpgradeable {
     // @dev date after which transfers are allowed
     uint256 public transferTimestamp;
 
+    IEventFactory factory;
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
@@ -25,15 +31,18 @@ contract Event is Initializable, ERC721Upgradeable, AccessControlUpgradeable {
         string calldata _name,
         string calldata _symbol,
         string calldata _baseUrl,
-        uint256 _transferTimestamp
+        uint256 _transferTimestamp,
+        address admin
     ) initializer public {
         __ERC721_init(_name, _symbol);
         __AccessControl_init();
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, admin);
         baseURI = _baseUrl;
         transferTimestamp = _transferTimestamp;
+        factory = IEventFactory(msg.sender);
     }
 
     function _baseURI() internal view override returns (string memory) {
