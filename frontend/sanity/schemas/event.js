@@ -46,6 +46,17 @@ export default {
       },
     },
     {
+      name: "transferDate",
+      title: "Allow Resell Start Date",
+      type: "datetime",
+      options: {
+        dateFormat: "YYYY-MMM-DD",
+        timeFormat: "h:mm a",
+        timeStep: 15,
+        calendarTodayLabel: "Today",
+      },
+    },
+    {
       name: "slug",
       title: "Slug",
       type: "slug",
