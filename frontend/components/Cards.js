@@ -120,8 +120,21 @@ const Cards = () => {
                             {event?.summary}
                           </p>
                           <p className="text-sm leading-6 text-black">
-                            {console.log(event.transferDate)}
-                            {event?.transferDate}
+                            {event?.transferDate < timeNow ? (
+                              "Non-transferrable ticket"
+                            ) : (
+                              <h3>
+                                Ticket Transfer Allowed Starting{" "}
+                                {new Date(event.transferDate).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                  }
+                                )}
+                              </h3>
+                            )}
                           </p>
                         </div>
                       </div>
