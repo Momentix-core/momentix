@@ -2,7 +2,7 @@
     "description": "ETHToronto is a hackathon in Toronto - the birthplace of ethereum.", 
     "external_url": "https://ethtoronto.ca", 
     "image": "https://api.momentix.xyz/ethtoronto/images/0.png", 
-    "animation_url": "https://api.momentix.xyz/ethtoronto/images/0.mp4",
+    "animation_url": "https://momentix.xyz/images/ethtoronto/default.mp4",
     "name": "ETHToronto 2022",
     "attributes": [
         {

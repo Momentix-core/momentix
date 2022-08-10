@@ -26,7 +26,7 @@
         var dataElem = document.getElementById('qrdata');
         const qrScanner = new QrScanner(
             videoElem,
-            result => {
+            async result => {
                 console.log('decoded qr code:', result.data);
                 dataElem.innerText = JSON.stringify(result.data);
                 const response = await fetch('https://api.momentix.xyz/verify', {
