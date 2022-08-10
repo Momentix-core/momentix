@@ -93,8 +93,8 @@ const Cards = () => {
       <div className={styles.title}>Events</div>
       <div className={styles.cards}>
         {events &&
-          events?.map((event) => (
-            <Link key={event._id} href={`/events/${event.slug.current}`}>
+          events?.map((event, index) => (
+            <Link key={index} href={`/events/${event.slug.current}`}>
               <div className="flex h-full flex-1 cursor-pointer flex-col justify-between overflow-hidden rounded-md shadow-lg transition-transform duration-200 ease-in-out hover:scale-105">
                 {event && (
                   <div>
