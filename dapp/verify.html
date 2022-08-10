@@ -14,7 +14,7 @@
 
     <h2>Scan a QR Code</h2>
 
-    <video id="scanner"></video>
+    <video id="scanner" style="width: 250px;"></video>
 
     <div id="qrdata"></div>
 
@@ -28,7 +28,7 @@
                 if ("data" in result) {
                     qrScanner.stop();
                     console.log('decoded qr code:', result.data);
-                    dataElem.innerText = JSON.stringify(result.data);
+                    dataElem.innerText = result.data;
                     var d = JSON.parse(result.data);
                     console.log(d.address);
                     const verifyURL = `https://api.momentix.xyz/verify?address=${d.address}&event=${d.event}&tokenId=${d.tokenId}&hash=${d.hash}`;
@@ -36,7 +36,14 @@
                     const response = await fetch(verifyURL);
                     const responseText = await response.json();
                     console.log(responseText);
-                    dataElem.innerText = JSON.stringify(responseText);
+                    if ("valid" in responseText) {
+                        if (responseText.valid == true) {
+                            dataElem.innerText = "VALID TICKET";
+                        }
+                    }
+                    if ("error" in responseText) {
+                            dataElem.innerText = "INVALID TICKET: " + responseText.error;
+                    }
                 }
             },
             { /* your options or returnDetailedScanResult: true if you're not specifying any other options */ },
