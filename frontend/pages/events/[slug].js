@@ -16,14 +16,16 @@ function Event({ event }) {
     <main>
       <Header />
 
-      <img
+      <Image
+        key={event._id}
         className="h-80 w-full object-cover"
         src={urlFor(event.mainImage).url()}
         alt=""
       />
       <article className="p5 mx-auto max-w-3xl">
         <div className=" mt-7 flex items-center space-x-2">
-          <img
+          <Image
+            key={event._id}
             className="object-fit h-16 w-auto rounded-lg shadow"
             src={urlFor(event.mainImage).url()}
             alt=""
