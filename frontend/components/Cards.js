@@ -93,58 +93,53 @@ const Cards = () => {
       <div className={styles.title}>Events</div>
       <div className={styles.cards}>
         {events &&
-          events?.map((event) => {
-            return (
-              <div>
+          events?.map((event) => (
+            <Link key={event._id} href={`/events/${event.slug.current}`}>
+              <div className="flex h-full flex-1 cursor-pointer flex-col justify-between overflow-hidden rounded-md shadow-lg transition-transform duration-200 ease-in-out hover:scale-105">
                 {event && (
-                  <Link key={event._id} href={`/events/${event.slug.current}`}>
-                    <div className="flex h-full flex-1 cursor-pointer flex-col justify-between overflow-hidden rounded-md shadow-lg transition-transform duration-200 ease-in-out hover:scale-105">
-                      <div>
-                        {" "}
-                        {event.mainImage && (
-                          <img
-                            key={event._id}
-                            className="h-60 w-full object-cover "
-                            src={urlFor(event.mainImage).url()}
-                            alt=""
-                          />
-                        )}
-                        <div className="flex items-center bg-white px-3 pt-3 md:px-5 md:pt-5">
-                          <div className="flex h-full w-full flex-1 flex-col ">
-                            <div className=" ">
-                              <p className="text-sm text-darkteal">
-                                {showEventDate(event.startTime, event.endTime)}
-                              </p>
-                              <p className="text-xl font-semibold text-darkblue md:text-lg">
-                                {event?.title}
-                              </p>
-                              <p className="text-sm leading-6 text-black">
-                                {console.log(event.summary)}
-                                {event?.summary}
-                              </p>
-                              <p className="text-sm leading-6 text-black">
-                                {console.log(event.transferDate)}
-                                {event?.transferDate}
-                              </p>
-                            </div>
-                          </div>
+                  <div>
+                    {" "}
+                    {event.mainImage && (
+                      <img
+                        className="h-60 w-full object-cover "
+                        src={urlFor(event.mainImage).url()}
+                        alt=""
+                      />
+                    )}
+                    <div className="flex items-center bg-white px-3 pt-3 md:px-5 md:pt-5">
+                      <div className="flex h-full w-full flex-1 flex-col ">
+                        <div className=" ">
+                          <p className="text-sm text-darkteal">
+                            {showEventDate(event.startTime, event.endTime)}
+                          </p>
+                          <p className="text-xl font-semibold text-darkblue md:text-lg">
+                            {event?.title}
+                          </p>
+                          <p className="text-sm leading-6 text-black">
+                            {console.log(event.summary)}
+                            {event?.summary}
+                          </p>
+                          <p className="text-sm leading-6 text-black">
+                            {console.log(event.transferDate)}
+                            {event?.transferDate}
+                          </p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between bg-white p-3 md:p-5">
-                        <div>
-                          {/* <p className="text-xs text-black">
+                    </div>
+                    <div className="flex items-center justify-between bg-white p-3 md:p-5">
+                      <div>
+                        {/* <p className="text-xs text-black">
                           <span className="font-semibold">Organizer:</span>{" "}
                           {console.log("logged event:", event)}
                           {event.users.username}
                         </p> */}
-                        </div>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 )}
               </div>
-            );
-          })}
+            </Link>
+          ))}
       </div>
     </div>
   );
