@@ -1,13 +1,14 @@
 import React from "react";
 import Cards from "./Cards";
+import Hero from "./Hero";
 const styles = {
-  container: `h-full w-full flex flex-col mt-[50px] pr-[50px]`,
+  container: `h-full w-full flex flex-col mt-[50px]`,
 };
 
 const Main = () => {
   return (
     <div className={styles.container}>
-      <h2>Events</h2>
+      <Hero />
       <Cards />
     </div>
   );
