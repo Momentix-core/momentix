@@ -102,7 +102,7 @@ const Cards = () => {
                       <div>
                         {" "}
                         {event.mainImage && (
-                          <img
+                          <Image
                             className="h-60 w-full object-cover "
                             src={urlFor(event.mainImage).url()}
                             alt=""
