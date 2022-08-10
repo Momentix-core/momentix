@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+</head>
+
+<body>
+
+<div>
+    <button id="connect">Step 1: Connect</button>
+</div>
+
+<div>
+    <button id="sign" style="display: none;">Step 2: Sign Message</button>
+</div>
+
+<div>
+    <img id="qrcode" style="display: none; width: 250;" src="" />
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@alch/alchemy-web3@latest/dist/alchemyWeb3.min.js"></script>
+    <script>
+        const rpcURL = "rpc.ankr.com/polygon_mumbai";
+        var web3 = AlchemyWeb3.createAlchemyWeb3("https://" + rpcURL);
+        var accounts;
+
+        $("#connect").click(function(){
+            if (window.ethereum) {
+                //console.log("window.ethereum true");
+                window.ethereum
+                    .enable()
+                    .then(async result => {
+                        // Metamask is ready to go!
+                        //console.log(result);
+                        accounts = result;
+                        //$("#sign").show();
+                        $("#connect").hide();
+                        var claimURL = `https://api.momentix.xyz/qrcode?address=${accounts[0]}&tokenId=&event=0x6278a8eef52780d0Dbbce40e10aE38163298aFB0`;
+                        const response = await fetch(verifyURL);
+                        const responseText = await response.json();
+                        if ("url" in responseText) {
+                            $("#qrcode").attr("src", responseText.url).show();
+                        }
+                    })
+                    .catch(reason => {
+                        // Handle error. Likely the user rejected the login.
+                    });
+            } else {
+                // The user doesn't have Metamask installed.
+                console.log("window.ethereum false");
+            } 
+        });
+
+    </script>
+</body>
+
+</html>
