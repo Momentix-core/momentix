@@ -32,7 +32,7 @@ contract EventFactory {
         uint256 transferTimestamp
     ) external returns (address) {
         address clone = Clones.clone(tokenImplementation);
-        Event(clone).initialize(name, symbol, baseUrl, transferTimestamp);
+        Event(clone).initialize(name, symbol, baseUrl, transferTimestamp, msg.sender);
         allEvents.push(clone);
         userToEvents[msg.sender].push(clone);
         ownerOfEvent[clone] = msg.sender;

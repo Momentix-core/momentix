@@ -1,5 +1,5 @@
 async function main() {
-    //const Factory = await ethers.getContractFactory("EventFactory");
+    //const Contract = await ethers.getContractFactory("EventFactory");
     const Contract = await ethers.getContractFactory("Event");
     
     // Start deployment, returning a promise that resolves to a contract object
