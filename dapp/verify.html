@@ -24,7 +24,7 @@
                     qrScanner.stop();
                     console.log('decoded qr code:', result.data);
                     dataElem.innerText = JSON.stringify(result.data);
-                    var d = result.data;
+                    var d = JSON.parse(result.data);
                     console.log(d.address);
                     const verifyURL = `https://api.momentix.xyz/verify?address=${d.address}&event=${d.event}&tokenId=${d.tokenId}&hash=${d.hash}`;
                     console.log(verifyURL);
