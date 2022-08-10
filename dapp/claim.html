@@ -30,6 +30,10 @@
     <img id="qrcode" style="display: none; width: 250;" src="" />
 </div>
 
+<div>
+    <a href="https://testnets.opensea.io/assets/mumbai/0x6278a8eef52780d0dbbce40e10ae38163298afb0/0" id="opensea" style="display: none;">View your NFT on Opensea</a>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@alch/alchemy-web3@latest/dist/alchemyWeb3.min.js"></script>
     <script>
@@ -56,6 +60,7 @@
                         if ("url" in responseText) {
                             $("#status").text("MINTED");
                             $("#qrcode").attr("src", responseText.url).show();
+                            $("#opensea").show();
                         }
                     })
                     .catch(reason => {
