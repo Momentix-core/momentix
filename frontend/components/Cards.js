@@ -103,6 +103,7 @@ const Cards = () => {
                         {" "}
                         {event.mainImage && (
                           <Image
+                            key={event._id}
                             className="h-60 w-full object-cover "
                             src={urlFor(event.mainImage).url()}
                             alt=""
