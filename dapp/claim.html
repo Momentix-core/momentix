@@ -4,35 +4,108 @@
 <head>
   <meta charset="utf-8">
 
+  <style>
+
+    body {
+        font: 400 15px 'Open Sans', sans-serif;
+    }
+
+    @-moz-keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  90% {
+    width: 90%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  90% {
+    width: 90%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  90% {
+    width: 90%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* DEMO */
+.iphone{
+  width:300px;
+  height:609px;
+  background-image:url('http://www.adobewordpress.com/tasarim/images/iphone6.png');
+  background-size:100% 100%;
+  margin:0 auto;
+  position:relative;
+}
+
+.border{
+	position:absolute;
+	top:12.3%;right:7%;left:7%;bottom:12%;
+	overflow:hidden;
+    text-align: center;
+}
+
+button.article{
+  text-decoration:none;
+  color:white;
+  background-color: rgb(249 115 22);
+  padding: 10px 20px;
+  border-color: rgb(249 115 22);
+  border-radius: 25px;
+  font: 400 15px 'Open Sans', sans-serif;
+}
+  </style>
+
 </head>
 
 <body>
 
-<div>
-    <img src="/images/momentix-logo.webp" />
-</div>
 
-<h2>Claim your NFT Ticket</h2>
 
-<div>
-    <button id="connect">Connect</button>
-</div>
+<div class="iphone">
+    <div class="border">
 
-<div>
-    <button id="sign" style="display: none;">Step 2: Sign Message</button>
-</div>
+        <div style="height: 100px;">
+            <img src="/images/momentix-logo.webp" style="height: 100%;" />
+        </div>
+        
+        <h2>Claim your NFT Ticket</h2>
+        <div style="text-align: center;">
+            <button class="article" id="connect">Connect</button>
+        </div>
+        
+        <div>
+            <img id="qrcode" style="display: none; width: 250;" src="" />
+        </div>
+        
+        <div>
+            <a href="https://testnets.opensea.io/assets/mumbai/0x6278a8eef52780d0dbbce40e10ae38163298afb0/0" id="opensea" style="display: none;">View your NFT on Opensea</a>
+        </div>
 
-<div>
-    <strong id="status"></strong>
-</div>
+    </div>
+  </div>
 
-<div>
-    <img id="qrcode" style="display: none; width: 250;" src="" />
-</div>
 
-<div>
-    <a href="https://testnets.opensea.io/assets/mumbai/0x6278a8eef52780d0dbbce40e10ae38163298afb0/0" id="opensea" style="display: none;">View your NFT on Opensea</a>
-</div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@alch/alchemy-web3@latest/dist/alchemyWeb3.min.js"></script>
@@ -52,13 +125,13 @@
                         accounts = result;
                         //$("#sign").show();
                         $("#connect").hide();
-                        $("#status").text("MINTING...");
+                        $("h2").text("Minting...");
                         var claimURL = `https://api.momentix.xyz/qrcode?address=${accounts[0]}&tokenId=0&event=0x6278a8eef52780d0Dbbce40e10aE38163298aFB0`;
                         console.log(claimURL);
                         const response = await fetch(claimURL);
                         const responseText = await response.json();
                         if ("url" in responseText) {
-                            $("#status").text("MINTED");
+                            $("h2").text("Minted!");
                             $("#qrcode").attr("src", responseText.url).show();
                             $("#opensea").show();
                         }

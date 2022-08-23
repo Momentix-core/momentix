@@ -4,19 +4,96 @@
 <head>
   <meta charset="utf-8">
 
+  <style>
+
+    body {
+        font: 400 15px 'Open Sans', sans-serif;
+    }
+
+    @-moz-keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  90% {
+    width: 90%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  90% {
+    width: 90%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  90% {
+    width: 90%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* DEMO */
+.iphone{
+  width:300px;
+  height:609px;
+  background-image:url('http://www.adobewordpress.com/tasarim/images/iphone6.png');
+  background-size:100% 100%;
+  margin:0 auto;
+  position:relative;
+}
+
+.border{
+	position:absolute;
+	top:12.3%;right:7%;left:7%;bottom:12%;
+	overflow:hidden;
+    text-align: center;
+}
+
+button.article{
+  text-decoration:none;
+  color:white;
+  background-color: rgb(249 115 22);
+  padding: 10px 20px;
+  border-color: rgb(249 115 22);
+  border-radius: 25px;
+  font: 400 15px 'Open Sans', sans-serif;
+}
+  </style>
+
 </head>
 
 <body>
 
-    <div>
-        <img src="/images/momentix-logo.webp" />
+    <div class="iphone">
+        <div class="border">
+
+    <div style="height: 100px;">
+        <img src="/images/momentix-logo.webp" style="height: 100%;" />
     </div>
 
     <h2>Scan a QR Code</h2>
 
-    <video id="scanner" style="width: 500px;"></video>
+    <div style="width: 100%;">
+        <video id="scanner" style="width: 90%;"></video>
+    </div>
 
     <div id="qrdata"></div>
+
+</div></div>
 
     <script src="/scripts/qr-scanner.umd.min.js"></script>
     <script>
