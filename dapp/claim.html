@@ -97,7 +97,7 @@ button.article{
         </div>
         
         <div>
-            <a href="https://testnets.opensea.io/assets/mumbai/0x6278a8eef52780d0dbbce40e10ae38163298afb0/0" id="opensea" style="display: none;">View your NFT on Opensea</a>
+            <a href="" id="opensea" style="display: none;">View your NFT on Opensea</a>
         </div>
 
     </div>
@@ -152,6 +152,15 @@ button.article{
                             tokenId = id;
                             //TODO: hit qrcode endpoint now with tokenId
                             console.log("minted tokenId: " + tokenId);
+                            var qrURL = `https://api.momentix.xyz/qrcode?address=${accounts[0]}&tokenId=${tokenId}&event=${addr.event}`;
+                            console.log(qrURL);
+                            const response = await fetch(qrURL);
+                            const responseText = await response.json();
+                            if ("url" in responseText) {
+                                $("h2").text("Minted!");
+                                $("#qrcode").attr("src", responseText.url).show();
+                                $("#opensea").attr("href", `https://testnets.opensea.io/assets/mumbai/${addr.event}/${tokenId}`).show();
+                            }
                         });
 
                         console.log("after listener");
