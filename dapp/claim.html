@@ -78,34 +78,39 @@ button.article{
 
 <body>
 
-
-
-<div class="iphone">
-    <div id="claim" class="border">
-
-        <div style="height: 100px;">
-            <img src="/images/momentix-logo.webp" style="height: 100%;" />
-        </div>
-        
-        <h2>Claim your NFT Ticket</h2>
-        <div style="text-align: center;">
-            <button class="article" id="connect">Connect</button>
-        </div>
-        
-        <div>
-            <a id="pdf" href="#">
-                <img id="qrcode" style="display: none; width: 250;" src="" />
-            </a>
-        </div>
-        
-        <div>
-            <a href="" id="opensea" style="display: none;">View your NFT on Opensea</a>
-        </div>
-
+    <div id="header">
+        <h2>Step 1 - you have purchased a ticket using your credit card, now (optionally) claim an NFT:</h2>
     </div>
-  </div>
 
+    <div class="iphone">
+        <div id="claim" class="border">
 
+            <div style="height: 100px;">
+                <img src="/images/momentix-logo.webp" style="height: 100%;" />
+            </div>
+            
+            <h2>Claim your NFT Ticket</h2>
+            <div style="text-align: center;">
+                <button class="article" id="connect">Connect</button>
+            </div>
+            
+            <div>
+                <a id="pdf" href="#">
+                    <img id="qrcode" style="display: none; width: 250;" src="" />
+                </a>
+            </div>
+            
+            <div>
+                <a href="" id="opensea" style="display: none;">View your NFT on Opensea</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="footer" style="display:none;">
+        <h2>Step 2 - Take your QR Code to the IRL event.</h2>
+        <button class="article" id="verify">Next</button>
+    </div>
 
 
 
@@ -162,6 +167,7 @@ button.article{
                             if ("url" in responseText) {
                                 $("h2").text("Minted!");
                                 $("#qrcode").attr("src", responseText.url).show();
+                                $("#footer").show();
                                 $("#opensea").attr("href", `https://testnets.opensea.io/assets/mumbai/${addr.event}/${tokenId}`).show();
                             }
                         });
@@ -191,6 +197,12 @@ button.article{
         $("#pdf").click(function(){
             const element = document.getElementById('qrcode');
 			html2pdf(element);
+            return false;
+        });
+
+        $("#verify").click(function(){
+            window.location = "/verify.html";
+            return false;
         });
 
     </script>
