@@ -190,7 +190,7 @@ button.article{
 
         $("#pdf").click(function(){
             const element = document.getElementById('claim');
-			html2pdf().from(element).save();
+			html2pdf(element);
         });
 
     </script>
