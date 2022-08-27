@@ -108,11 +108,24 @@ button.article{
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.ethers.io/lib/ethers-5.1.umd.min.js" type="text/javascript"></script>  
 <script src="https://cdn.jsdelivr.net/npm/@alch/alchemy-web3@latest/dist/alchemyWeb3.min.js"></script>
+<script src="/scripts/abis.js"></script>
     <script>
         const rpcURL = "rpc.ankr.com/polygon_mumbai";
         var web3 = AlchemyWeb3.createAlchemyWeb3("https://" + rpcURL);
         var accounts;
+
+        var addr = {};
+        addr.event = "0x6278a8eef52780d0Dbbce40e10aE38163298aFB0";
+
+        const prov = {"url": "https://polygon-mumbai.g.alchemy.com/v2/Ptsa6JdQQUtTbRGM1Elvw_ed3cTszLoj"};
+        var provider = new ethers.providers.JsonRpcProvider(prov);
+        const eventContract = new ethers.Contract(
+            addr.event,
+            eventJSON.abi,
+            signer
+        );
 
         $("#connect").click(function(){
             if (window.ethereum) {
@@ -126,14 +139,24 @@ button.article{
                         //$("#sign").show();
                         $("#connect").hide();
                         $("h2").text("Minting...");
-                        var claimURL = `https://api.momentix.xyz/qrcode?address=${accounts[0]}&tokenId=0&event=0x6278a8eef52780d0Dbbce40e10aE38163298aFB0`;
+
+                        var transferFilter = await eventContract.filters.Transfer(null, addr);
+                        eventContract.on(transferFilter, async (from, to, id, event) => { 
+                            console.log("transfer", id, event);
+                            tokenId = id;
+                            //TODO: hit qrcode endpoint now with tokenId
+                            console.log("minted tokenId: " + tokenId);
+                        });
+
+
+                        var claimURL = `https://api.momentix.xyz/mint?address=${accounts[0]}&tokenId=0&event=${addr.event}`;
                         console.log(claimURL);
                         const response = await fetch(claimURL);
                         const responseText = await response.json();
-                        if ("url" in responseText) {
-                            $("h2").text("Minted!");
-                            $("#qrcode").attr("src", responseText.url).show();
-                            $("#opensea").show();
+                        if ("status" in responseText) {
+                            $("h2").text(responseText.status + "!");
+                            //$("#qrcode").attr("src", responseText.url).show();
+                            //$("#opensea").show();
                         }
                     })
                     .catch(reason => {
@@ -144,6 +167,8 @@ button.article{
                 console.log("window.ethereum false");
             } 
         });
+
+
 
     </script>
 </body>
