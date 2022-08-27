@@ -78,22 +78,32 @@ button.article{
 
 <body>
 
+    <div id="header">
+        <h2>Step 3 - Scan your QR Code to verify NFT and enter event:</h2>
+    </div>
+
     <div class="iphone">
         <div class="border">
 
-    <div style="height: 100px;">
-        <img src="/images/momentix-logo.webp" style="height: 100%;" />
+            <div style="height: 100px;">
+                <img src="/images/momentix-logo.webp" style="height: 100%;" />
+            </div>
+
+            <h2>Scan a QR Code</h2>
+
+            <div style="width: 100%;">
+                <video id="scanner" style="width: 90%;"></video>
+            </div>
+
+            <div id="qrdata"></div>
+
+        </div>
     </div>
 
-    <h2>Scan a QR Code</h2>
-
-    <div style="width: 100%;">
-        <video id="scanner" style="width: 90%;"></video>
+    <div id="footer" style="display:none;">
+        <h2>Step 4 - Enjoy the event and watch your NFT dynamically change <em>during</em> the event (<a href="https://testnets.opensea.io/assets/mumbai/0x6278a8eef52780d0Dbbce40e10aE38163298aFB0/1" target="_blank">example</a>) and <em>after</em> the event (<a href="https://testnets.opensea.io/assets/mumbai/0x6278a8eef52780d0Dbbce40e10aE38163298aFB0/2" target="_blank">example</a>).</h2>
+        <button class="article" id="verify">Next</button>
     </div>
-
-    <div id="qrdata"></div>
-
-</div></div>
 
     <script src="/scripts/qr-scanner.umd.min.js"></script>
     <script>
@@ -116,6 +126,7 @@ button.article{
                     if ("valid" in responseText) {
                         if (responseText.valid == true) {
                             dataElem.innerText = "VALID TICKET";
+                            $("#footer").show();
                         }
                     }
                     if ("error" in responseText) {

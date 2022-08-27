@@ -89,7 +89,7 @@ button.article{
                 <img src="/images/momentix-logo.webp" style="height: 100%;" />
             </div>
             
-            <h2>Claim your NFT Ticket</h2>
+            <h2 class="status">Claim your NFT Ticket</h2>
             <div style="text-align: center;">
                 <button class="article" id="connect">Connect</button>
             </div>
@@ -149,7 +149,7 @@ button.article{
                         accounts = result;
                         //$("#sign").show();
                         $("#connect").hide();
-                        $("h2").text("Minting...");
+                        $("h2.status").text("Minting...");
 
                         var tokenId;
                         console.log("before listener");
@@ -165,7 +165,7 @@ button.article{
                             const response = await fetch(qrURL);
                             const responseText = await response.json();
                             if ("url" in responseText) {
-                                $("h2").text("Minted!");
+                                $("h2.status").text("Minted!");
                                 $("#qrcode").attr("src", responseText.url).show();
                                 $("#footer").show();
                                 $("#opensea").attr("href", `https://testnets.opensea.io/assets/mumbai/${addr.event}/${tokenId}`).show();
@@ -180,7 +180,7 @@ button.article{
                         const response = await fetch(claimURL);
                         const responseText = await response.json();
                         if ("status" in responseText) {
-                            $("h2").text(responseText.status + "!");
+                            $("h2.status").text(responseText.status + "!");
                             //$("#qrcode").attr("src", responseText.url).show();
                             //$("#opensea").show();
                         }
