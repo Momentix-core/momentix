@@ -121,10 +121,13 @@ button.article{
 
         const prov = {"url": "https://polygon-mumbai.g.alchemy.com/v2/Ptsa6JdQQUtTbRGM1Elvw_ed3cTszLoj"};
         var provider = new ethers.providers.JsonRpcProvider(prov);
+        var wssProvider = new ethers.providers.WebSocketProvider(
+            "wss://polygon-mumbai.g.alchemy.com/v2/Ptsa6JdQQUtTbRGM1Elvw_ed3cTszLoj"
+        );
         const eventContract = new ethers.Contract(
             addr.event,
             eventABI,
-            provider
+            wssProvider
         );
 
         $("#connect").click(function(){
@@ -140,7 +143,10 @@ button.article{
                         $("#connect").hide();
                         $("h2").text("Minting...");
 
-                        var transferFilter = await eventContract.filters.Transfer(null, addr);
+                        var tokenId;
+                        console.log("before listener");
+
+                        var transferFilter = await eventContract.filters.Transfer(null, accounts[0]);
                         eventContract.on(transferFilter, async (from, to, id, event) => { 
                             console.log("transfer", id, event);
                             tokenId = id;
@@ -148,7 +154,7 @@ button.article{
                             console.log("minted tokenId: " + tokenId);
                         });
 
-                        // test
+                        console.log("after listener");
 
 
                         var claimURL = `https://api.momentix.xyz/mint?address=${accounts[0]}&tokenId=0&event=${addr.event}`;
