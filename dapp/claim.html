@@ -123,7 +123,7 @@ button.article{
         var provider = new ethers.providers.JsonRpcProvider(prov);
         const eventContract = new ethers.Contract(
             addr.event,
-            eventJSON.abi,
+            eventABI,
             signer
         );
 
