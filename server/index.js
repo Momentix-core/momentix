@@ -42,6 +42,31 @@ function cors(req, res) {
 
 module.exports = {
 
+    "mint": async function(req,res) {
+        res = cors(req, res);
+        if (req.method === 'OPTIONS') {
+            return res.status(204).send('');
+        }
+        //TODO: API auth !!
+
+        //const addr = "0x0F74e1B1b88Dfe9DE2dd5d066BE94345ab0590F1";
+        //const event = "0x874fE156D399c08B89BAe5DbcF8Bb5b4F0A9603a";
+        const addr = req.query.address;
+        const event = req.query.event;
+
+        // need to mint
+        var signer = new ethers.Wallet(process.env.MOMENTIX_PRIV, provider);
+        const eventContract = new ethers.Contract(
+            event,
+            eventJSON.abi,
+            signer
+        );
+        await (await eventContract.safeMint(addr, gasOptions)).wait();
+        return res.json({
+            "status": "Minted"
+        });
+    },
+
     "qrcode": async function(req,res) {
         res = cors(req, res);
         if (req.method === 'OPTIONS') {
@@ -132,13 +157,14 @@ module.exports = {
             provider
         );
         const currentOwner = await eventContract.ownerOf(tokenId);
-        if ( currentOwner == addr) {
+        if ( currentOwner.toLowerCase() == addr.toLowerCase() ) {
             // the addr from the QR code still owns the NFT
             // TODO: update metadata to reflect admission?
             return res.json({
                 "valid": true
             });
         } else {
+            console.log(currentOwner, addr);
             return res.json({
                 "error": "NFT transferred to another address"
             });
@@ -193,11 +219,11 @@ module.exports = {
         //data.image = `https://api.momentix.xyz/${eventName}/images/${id}.png`;
         //data.animation_url = `https://api.momentix.xyz/${eventName}/images/${id}.mp4`;
         if (id == 1) {
-            data.image = `https://momentix.xyz/images/ethtoronto/admitted.png`;
+            data.image = `https://app.momentix.xyz/images/ethtoronto/admitted.png`;
             data.animation_url = "";
         }
         if (id == 2) {
-            data.animation_url = `https://momentix.xyz/images/ethtoronto/recap.mp4`;
+            data.animation_url = `https://app.momentix.xyz/images/ethtoronto/recap.mp4`;
         }
         res.set('Cache-Control', 'public, max-age=1800, s-maxage=3600');
         return res.json(data);
