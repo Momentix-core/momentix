@@ -124,7 +124,7 @@ button.article{
         const eventContract = new ethers.Contract(
             addr.event,
             eventABI,
-            signer
+            provider
         );
 
         $("#connect").click(function(){
