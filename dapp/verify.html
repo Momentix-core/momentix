@@ -105,8 +105,13 @@ button.article{
         <button class="article" id="verify">Next</button>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="/scripts/qr-scanner.umd.min.js"></script>
     <script>
+        function abbrAddress(address){
+            return address.slice(0,4) + "..." + address.slice(address.length - 4);
+        }
+
         var videoElem = document.getElementById('scanner');
         var dataElem = document.getElementById('qrdata');
         const qrScanner = new QrScanner(
@@ -115,9 +120,11 @@ button.article{
                 if ("data" in result) {
                     qrScanner.stop();
                     console.log('decoded qr code:', result.data);
-                    dataElem.innerText = result.data;
                     var d = JSON.parse(result.data);
                     console.log(d.address);
+                    const addr = abbrAddress(d.address);
+                    const event = abbrAddress(d.event);
+                    dataElem.innerHTML = `<ul><li>Address: ${addr}</li><li>Event: ${event}</li><li>tokenId: ${d.tokenId}</li></ul>`;                    
                     const verifyURL = `https://api.momentix.xyz/verify?address=${d.address}&event=${d.event}&tokenId=${d.tokenId}&hash=${d.hash}`;
                     console.log(verifyURL);
                     const response = await fetch(verifyURL);
