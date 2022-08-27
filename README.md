@@ -23,4 +23,4 @@ https://momentix.xyz/verify.html
 # Event Gallery
 https://frontend-momentix-0238.vercel.app/
 
-**built by a team of four in less than 24 hours at ETHToronto 2022**
+**built by a team of four in less than 24 hours at ETHToronto 2022 ... and we won!*
